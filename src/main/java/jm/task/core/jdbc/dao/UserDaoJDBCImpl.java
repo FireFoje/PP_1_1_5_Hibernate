@@ -2,7 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,8 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
     Connection connection = Util.getConnection();
 
-    public UserDaoJDBCImpl() {}
+    public UserDaoJDBCImpl() {
+    }
 
     public void createUsersTable() {
         String createTable = "create table if not exists user\n" +
@@ -20,7 +20,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 "    lastName VARCHAR(40),\n" +
                 "    age      INT\n" +
                 ")";
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTable);
         } catch (SQLException ignored) {
             System.out.println("Error of ctreating");
@@ -31,7 +31,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void dropUsersTable() throws SQLException {
         String drop = "DROP TABLE IF EXISTS user";
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(drop);
         } catch (SQLException e) {
             System.out.println("Error dropped");

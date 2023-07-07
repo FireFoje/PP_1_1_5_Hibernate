@@ -6,6 +6,7 @@ import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
     private final static UserService userDao = new UserServiceImpl();
+
     public static void main(String[] args) throws Exception {
 
 
