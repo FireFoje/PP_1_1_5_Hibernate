@@ -1,13 +1,14 @@
 package jm.task.core.jdbc;
 
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
-    private final static UserService userDao = new UserServiceImpl();
+    private final static UserDaoHibernateImpl userDao = new UserDaoHibernateImpl();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
 
         userDao.createUsersTable();
