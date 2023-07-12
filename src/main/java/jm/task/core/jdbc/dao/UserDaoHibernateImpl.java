@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
@@ -18,12 +19,11 @@ public class UserDaoHibernateImpl implements UserDao {
 
     }
 
-
     @Override
     public void createUsersTable() {
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Query query = session.createSQLQuery("create table if not exists user\n" +
+            Query query = session.createSQLQuery("CREATE TABLE IF NOT EXISTS user\n" +
                     "(\n" +
                     "    id       BIGINT PRIMARY KEY AUTO_INCREMENT,\n" +
                     "    name     VARCHAR(40),\n" +
@@ -79,10 +79,10 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         try (Session session = Util.getSessionFactory().openSession()) {
-            CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder().createQuery(User.class);
-            criteriaQuery.from(User.class);
+//                    session.getCriteriaBuilder().createQuery(User.class);
             transaction = session.beginTransaction();
-            List<User> list = session.createQuery(criteriaQuery).getResultList();
+            TypedQuery<User> typedQuery = session.createSQLQuery("SELECT * FROM user").addEntity(User.class);
+            List<User> list = typedQuery.getResultList();
             transaction.commit();
             return list;
         }
